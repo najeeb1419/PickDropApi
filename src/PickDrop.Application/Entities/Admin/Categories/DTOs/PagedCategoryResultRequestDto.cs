@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace PickDrop.Entities.Admin.Categories.DTOs
 {
+    [AutoMapFrom(typeof(PagedCategoryModel)), AutoMapTo(typeof(PagedCategoryModel))]
     public class PagedCategoryResultRequestDto : PagedResultRequestDto
     {
-        [AutoMapFrom(typeof(PagedCategoryModel)), AutoMapTo(typeof(PagedCategoryModel))]
         public string Name { get; set; }
         public string Description { get; set; }
         public string IsActive { get; set; }
