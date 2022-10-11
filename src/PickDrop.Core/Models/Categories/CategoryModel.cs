@@ -18,5 +18,8 @@ namespace PickDrop.Models.Categories
         public string ImagePath { get; set; }
         public string ThumbnailImagePath { get; set; }
         public bool IsActive { get; set; }
+        public int? SubCategoryId { get; set; }
+        public int? ParentId { get; set; }
+        public virtual List<Category> Subcategories { get; set; }
     }
 }
