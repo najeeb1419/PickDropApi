@@ -22,5 +22,6 @@ namespace PickDrop.Managers.Categories
         Task<int> AddCategoryAsync(CategoryModel input);
         Task<int> UpdateCategoryAsync(CategoryModel input);
         Task DeleteCategoryAsync(int id);
+        Task<List<SelectItemDto>> GetSubCategoryList(int categoryId);
     }
 }

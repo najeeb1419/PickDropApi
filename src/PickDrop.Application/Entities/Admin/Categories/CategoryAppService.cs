@@ -84,6 +84,15 @@ namespace PickDrop.Entities.Admin.Categories
             return list;
         }
 
+        public async Task<List<SelectItemDto>> GetSubCategoryList(int categoryId)
+        {
+            var list = await _categoryManager.GetSubCategoryList(categoryId);
+            return list;
+        }
+
+
+        
+
         public async Task<CategoryDto> GetCategoryAsync(int id)
         {
             var data = await _categoryManager.GetCategoryAsync(id);
@@ -100,6 +109,11 @@ namespace PickDrop.Entities.Admin.Categories
         {
             var data = ObjectMapper.Map<CategoryModel>(input);
             return await _categoryManager.UpdateCategoryAsync(data);
+        }
+
+        public override Task<CategoryDto> CreateAsync(CategoryDto input)
+        {
+            return base.CreateAsync(input);
         }
 
         public async Task DeleteProuductSubCategoryAsync(int id)

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using PickDrop.Authorization.Roles;
 using PickDrop.Authorization.Users;
 using PickDrop.Entities.Admin.Categories;
+using PickDrop.Entities.Admin.SurchargeTimes;
+using PickDrop.Entities.Admin.VehicleDetails;
 using PickDrop.MultiTenancy;
 
 namespace PickDrop.EntityFrameworkCore
@@ -17,6 +19,9 @@ namespace PickDrop.EntityFrameworkCore
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<VehicleDetail> VehicleDetails { get; set; }
+        public DbSet<SurchargeTime> SurchargeTimes { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

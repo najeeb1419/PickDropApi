@@ -35,6 +35,7 @@ namespace PickDrop.Managers.Categories
             var allHistory = _CategoryRepository.GetAll()
                 .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.ToLower().Contains(input.Name.ToLower()))
                 .WhereIf(!input.IsActive.IsNullOrWhiteSpace(), x => x.IsActive.ToString().ToLower().Contains(input.IsActive.ToLower()))
+                .WhereIf(!input.Type.IsNullOrWhiteSpace() && input.Type.ToLower()=="subcategory", x=>x.ParentId>0)
                 .OrderByDescending(a => a.Id);
             var pagedallHistory = allHistory
                         .PageBy(input);
@@ -60,6 +61,16 @@ namespace PickDrop.Managers.Categories
         public async Task<List<SelectItemDto>> GetCategoryList()
         {
             var list = await _CategoryRepository.GetAll().Select(x => new SelectItemDto()
+            {
+                Label = x.Name,
+                Value = x.Id
+            }).ToListAsync();
+            return list;
+        }
+
+        public async Task<List<SelectItemDto>> GetSubCategoryList(int categoryId)
+        {
+            var list = await _CategoryRepository.GetAll().Where(x=>x.ParentId==categoryId).Select(x => new SelectItemDto()
             {
                 Label = x.Name,
                 Value = x.Id
@@ -119,16 +130,16 @@ namespace PickDrop.Managers.Categories
                 File.Delete(filePath);
             }
         }
-
-
        
 
 
         public async Task<int> AddCategoryAsync(CategoryModel input)
-        {
+          {
             var Subcategory = _mapper.Map<Category>(input);
             return await _CategoryRepository.InsertAndGetIdAsync(Subcategory);
         }
+
+
 
         public async Task<int> UpdateCategoryAsync(CategoryModel input)
         {
